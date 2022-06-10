@@ -33,6 +33,7 @@ class Profile(models.Model):
 class Project(models.Model):
   name=models.CharField(max_length=50)
   description=models.TextField()
+  location=models.CharField(max_length=50)
   url=models.URLField()
   screenshot=CloudinaryField('Project Screenshot')
   voters=models.IntegerField(default=0)
