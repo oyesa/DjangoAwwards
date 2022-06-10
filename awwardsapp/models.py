@@ -2,6 +2,7 @@ import profile
 from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
+from django.db.models import IntegerField
 
 
 
@@ -67,3 +68,33 @@ class Project(models.Model):
 
   class Meta:
     ordering=['-post_date']
+
+
+class Vote(models.Model):
+  project=models.ForeignKey(Project, on_delete=models.CASCADE, related_name='votes')
+  voter=models.ForeignKey(Profile, on_delete=models.CASCADE)
+  post_date=models.DateTimeField(auto_now_add=True)
+  #voting critirea and scale
+  design = IntegerField(default=0)
+  usability = IntegerField(default=0)
+  content = IntegerField(default=0)
+
+  #methods
+  def save_vote(self):
+    self.save()
+
+  def delete_vote(self):
+    self.delete()
+
+  @classmethod
+  def get_project_votes(cls, project):
+    return cls.objects.filter(project=project)
+
+  @classmethod
+  def get_voters(cls, voter):
+    return cls.objects.filter(voter=voter)
+
+  class Meta:
+    ordering=['-post_date']
+
+  
