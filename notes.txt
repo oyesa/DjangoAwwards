@@ -31,9 +31,9 @@ oyesa=# CREATE DATABASE tribune;
 Step 3: Change project database settings to use Postgres: settings.py >>
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tribune',
-        'USER': '<Your Database Username >',
-    'PASSWORD':'<Your Database Password>',
+        'NAME': '<your DB name>',
+        'USER': '<Your DB Username >',
+    'PASSWORD':'<Your DB Password>',
     }
 
 Step 4: Setting the Timezone >>settings.py>>TIME_ZONE = 'Africa/Nairobi'
@@ -41,7 +41,7 @@ Step 4: Setting the Timezone >>settings.py>>TIME_ZONE = 'Africa/Nairobi'
 Step 5: Initial Migration: python3.8 manage.py migrate
 
 after creating models: First: Run Checks>>python3.8 manage.py check
-Second: Make Migrations>>python manage.py makemigrations news
+Second: Make Migrations>>python manage.py makemigrations <name of app>
 Third: View Migration>>python3.8 manage.py sqlmigrate news 0001
 Fourth: Run Migration>>python3.8 manage.py migrate
 
