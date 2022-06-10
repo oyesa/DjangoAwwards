@@ -1,0 +1,15 @@
+/* font-family: 'Merienda', cursive;
+font-family: 'Merienda One', cursive; */
+
+@import url('https://fonts.googleapis.com/css2?family=Merienda+One&family=Merienda:wght@400;700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.container-fluid-home{
+  font-family: 'Merienda One', cursive;
+}

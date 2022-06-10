@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-@login_required(login_url='/accounts/login')
+# @login_required(login_url='/accounts/login')
 def home(request):
   title='Crowne Awards'
   date=dt.date.today()

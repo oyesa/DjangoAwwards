@@ -18,6 +18,12 @@ Step 1: define our applications configurations inside our project in settings.py
 Inside settings.py file add the app configuration <news.apps.NewsConfig>  inside our INSTALLED_APPS settings. 
 
 
+__SETUP STATIC FILES__
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 __CREATING TEMPLATES__
 
 
@@ -79,3 +85,4 @@ View my profile page
 
 
 
+from rest_framework.response import Response
