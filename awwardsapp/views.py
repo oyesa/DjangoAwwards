@@ -106,7 +106,7 @@ def project(request, project_id):
     project.average_content =average_content
     project.save()
 
-  return render(request, 'project/project.html', {"title": title, "form": form, "project": project, "votes": votes, "voted": voted, "total_votes":total_votes})
+  # return render(request, 'project/project.html', {"title": title, "form": form, "project": project, "votes": votes, "voted": voted, "total_votes":total_votes})
 
 
 
