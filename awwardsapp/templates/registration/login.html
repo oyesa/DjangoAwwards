@@ -8,11 +8,11 @@
   <div class="registration">
     <div class="regform">
       <div class="signup">
-        <h1>Register</h1>
+        <h1>Sign In</h1>
         <form action="/accounts/register/" method="post">
           {% csrf_token %}
           {% bootstrap_form form%}
-          <button class="button submit" type="submit">Sign Up</button>
+          <button class="button submit" type="submit">Login</button>
         </form>
       </div>
     </div>
@@ -21,8 +21,8 @@
         <a href="/">Crowne Awards</a>
       </div>
       <h2></h2>
-      <p class="account">Already have an account?</p>
-        <a href="/accounts/login/"><button class="button signin">login</button></a>
+      <p class="account">Don't Have an Account?</p>
+        <a href="/accounts/register/"><button class="button signup">Register</button></a>
     </div>
   </div>
 </div>
