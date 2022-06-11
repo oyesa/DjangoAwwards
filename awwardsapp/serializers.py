@@ -1,7 +1,7 @@
-from cProfile import Profile
+from .models import Profile, Project
 from rest_framework import serializers
 
-from awwardsapp.models import Project
+
 
 
 

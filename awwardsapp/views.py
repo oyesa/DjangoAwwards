@@ -8,6 +8,10 @@ from django.core import exceptions
 from .forms import *
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
+from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework.response import Response
+from .serializers import *
 
 
 
@@ -211,5 +215,15 @@ def rate_project(request,project_id):
 
 
 #API Views
+class ProfileList(APIView):
+    def get(self,request,format = None):
+        profiles =  Profile.objects.all()
+        serializers = ProfileSerializer(profiles, many=True)
+        return Response(serializers.data) 
 
-    
+
+class ProjectList(APIView):
+    def get(self,request,format = None):
+        projects =  Project.objects.all()
+        serializers = ProjectSerializer(projects, many=True)
+        return Response(serializers.data) 
