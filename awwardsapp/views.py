@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile, Project, Vote
 from django.contrib.auth.models import User
 from django.core import exceptions
+from .forms import *
+from django.http import HttpResponseRedirect, Http404
+from django.urls import reverse
 
 
 
@@ -55,7 +58,7 @@ def profile(request, profile_id):
 
 @login_required(login_url='/accounts/login')
 def project(request, project_id):
-  # form=RateProjectForm()
+  form=VoteProjectForm()
   project = Project.objects.get(pk=project_id)
   title=project.name.title()
   votes=Vote.get_project_votes(project.id)
@@ -83,7 +86,7 @@ def project(request, project_id):
       voted=False
       if request.user.id in voters_list:
         voted=True
-    except Profile.Exception:
+    except Profile.DoesNotExist:
       voted=False
   print('USER')
   print(request.user.id)
@@ -105,10 +108,52 @@ def project(request, project_id):
     project.average_content =average_content
     project.save()
 
-  # return render(request, 'project/project.html', {"title": title, "form": form, "project": project, "votes": votes, "voted": voted, "total_votes":total_votes})
+  return render(request, 'project/project.html', {"title": title, "form": form, "project": project, "votes": votes, "voted": voted, "total_votes":total_votes})
+
+
+@login_required(login_url='/accounts/login/')
+def create_project(request):
+    title = "Create a project"
+    if request.method == "POST":
+        form = AddProjectForm(request.POST, request.FILES)
+        current_user = request.user
+        try:
+            profile = Profile.objects.get(user = current_user)
+        except Profile.DoesNotExist:
+            raise Http404()
+        if form.is_valid():
+            project = form.save(commit= False)
+            project.profile = profile
+            project.save()
+        return redirect("home")
+    else:
+        form = AddProjectForm()
+    return render(request, 'project/add_project.html', {"form": form, "title":title})
 
 
 
+
+@login_required(login_url='/accounts/login/')
+def rate_project(request,project_id):
+    if request.method == "POST":
+        form = VoteProjectForm(request.POST)
+        project = Project.objects.get(pk = project_id)
+        current_user = request.user
+        try:
+            user = User.objects.get(pk = current_user.id)
+            profile = Profile.objects.get(user = user)
+        except Profile.DoesNotExist:
+            raise Http404()
+
+        if form.is_valid():
+            vote = form.save(commit= False)
+            vote.voter = profile
+            vote.project = project
+            vote.save_vote()
+            return HttpResponseRedirect(reverse('project', args =[int(project.id)]))
+    else:
+        form = VoteProjectForm()
+    return render(request, 'project/project.html', {"form": form})
 
 
 
