@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'awwardsapp.apps.AwwardsappConfig',
     'cloudinary',
     'bootstrap3',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

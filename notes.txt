@@ -86,3 +86,7 @@ View my profile page
 
 
 from rest_framework.response import Response
+
+__DRF__
+Install DRF >> Pip install djangorestframework and register it in settings.py under 'INSTALLED APPS'
+Serialize the model instances profile & project

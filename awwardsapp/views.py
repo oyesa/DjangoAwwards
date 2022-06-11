@@ -18,6 +18,7 @@ from django.urls import reverse
 
 
 # Create your views here.
+#Homepage
 # @login_required(login_url='/accounts/login')
 def home(request):
   title='Crowne Awards'
@@ -33,7 +34,7 @@ def home(request):
     highest_votes=votes[:3]
   return render(request, 'home.html', {'title':title, 'date':date, 'votes': highest_votes, 'projects': projects, 'highest': highest_score})
  
-
+#user profile
 @login_required(login_url='/accounts/login')
 def profile(request, profile_id):
   try:
@@ -54,8 +55,22 @@ def profile(request, profile_id):
     raise Http404()
   return(request, 'user/profile.html', {'profile': profile, 'projects': projects, 'count':projects_count, 'average': average, 'votes': total_votes})
 
+def create_profile(request):
+    current_user = request.user
+    title = "Create Profile"
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = current_user
+            profile.save()
+        return HttpResponseRedirect('/')
 
+    else:
+        form = UserProfileForm()
+    return render(request, 'user/create_profile.html', {"form": form, "title": title})
 
+#voting and average calculation 
 @login_required(login_url='/accounts/login')
 def project(request, project_id):
   form=VoteProjectForm()
@@ -110,7 +125,7 @@ def project(request, project_id):
 
   return render(request, 'project/project.html', {"title": title, "form": form, "project": project, "votes": votes, "voted": voted, "total_votes":total_votes})
 
-
+#logged in user create a project
 @login_required(login_url='/accounts/login/')
 def create_project(request):
     title = "Create a project"
@@ -130,7 +145,7 @@ def create_project(request):
         form = AddProjectForm()
     return render(request, 'project/add_project.html', {"form": form, "title":title})
 
-
+#search for a single project
 @login_required(login_url='/accounts/login/')
 def search_project(request):
     if "project" in request.GET and request.GET["project"]:
@@ -169,6 +184,7 @@ def search_project(request):
         message = "No term searched"
         return render(request,'project/search.html', {"message": message, "title": title})
 
+#rating projects
 @login_required(login_url='/accounts/login/')
 def rate_project(request,project_id):
     if request.method == "POST":
@@ -194,7 +210,6 @@ def rate_project(request,project_id):
 
 
 
-
-
+#API Views
 
     
