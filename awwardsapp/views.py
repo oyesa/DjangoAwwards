@@ -131,7 +131,43 @@ def create_project(request):
     return render(request, 'project/add_project.html', {"form": form, "title":title})
 
 
-
+@login_required(login_url='/accounts/login/')
+def search_project(request):
+    if "project" in request.GET and request.GET["project"]:
+        searched_project = request.GET.get("project")
+        title = "CrowneAwards | search"
+        voted = False
+        try:
+            projects = Project.search_project(searched_project)
+            count = projects.count()
+            message =f"{searched_project}"
+            if len(projects) == 1:
+                project = projects[0]
+                form = VoteProjectForm()
+                title = project.name.upper()
+                votes = Vote.get_project_votes(project.id)
+                voters = project.voters
+                
+                for vote in votes:
+                    try:
+                        user = User.objects.get(pk = request.user.id)
+                        profile = Profile.objects.get(user = user)
+                        voter = Vote.get_project_voters(profile)
+                        voters_list=[]
+                        voted = False
+                        if request.user.id in voters_list: 
+                            voted = True
+                    except Profile.DoesNotExist:
+                        voted = False
+                return render(request, 'project/project.html', {"form": form, "project": project, "voted": voted, "votes": votes, "title": title})
+            return render(request, 'project/search.html', {"projects": projects,"message": message, "count":count, "title": title})
+        except Project.DoesNotExist:
+            suggestions = Project.display_all_projects()
+            message= f"No projects titled {searched_project}"
+            return render(request, 'project/search.html', {"suggestions":suggestions,"message": message, "title": title})
+    else:
+        message = "No term searched"
+        return render(request,'project/search.html', {"message": message, "title": title})
 
 @login_required(login_url='/accounts/login/')
 def rate_project(request,project_id):
