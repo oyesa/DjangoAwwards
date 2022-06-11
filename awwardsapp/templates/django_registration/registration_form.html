@@ -1,0 +1,29 @@
+{%extends "registration/base.html"%}
+{% load static %}
+{%load bootstrap3 %}
+
+
+{% block content %}
+<div class="container">
+  <div class="registration">
+    <div class="regform">
+      <div class="signup">
+        <h1>Register</h1>
+        <form action="/accounts/register/" method="post">
+          {% csrf_token %}
+          {% bootstrap_form form%}
+          <button class="button submit" type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+    <div class="moveleft">
+      <div class="logo">
+        <a href="/">Crowne Awards</a>
+      </div>
+      <h2></h2>
+      <p class="account">Already have an account?</p>
+        <a href="/accounts/login/"><button class="button signin">login</button></a>
+    </div>
+  </div>
+</div>
+{% endblock content %}
