@@ -33,12 +33,16 @@ class Profile(models.Model):
 class Project(models.Model):
   name=models.CharField(max_length=50)
   description=models.TextField()
-  location=models.CharField(max_length=50)
+  # location=models.CharField(max_length=50)
   url=models.URLField()
   screenshot=CloudinaryField('Project Screenshot')
   voters=models.IntegerField(default=0)
   profile=models.ForeignKey(Profile, on_delete=models. CASCADE)
   post_date=models.DateTimeField(auto_now_add=True, null=True)
+  average_design = models.FloatField(default=0,)
+  average_usability = models.FloatField(default=0)
+  average_content = models.FloatField(default=0)
+  average_score = models.FloatField(default=0)
   
 
   #methods

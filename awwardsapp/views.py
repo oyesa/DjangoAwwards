@@ -1,4 +1,3 @@
-from turtle import title
 from django.http import Http404
 from django.shortcuts import render, redirect
 import datetime as dt
