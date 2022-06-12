@@ -1,0 +1,80 @@
+/* font-family: 'Merienda', cursive;
+font-family: 'Merienda One', cursive; */
+
+@import url('https://fonts.googleapis.com/css2?family=Merienda+One&family=Merienda:wght@400;700&display=swap');
+
+
+body {
+  padding-top: 10rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.create_project {
+  background: #A5F;
+  border-radius: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  color: #fff;
+  padding: 2%;
+  margin-bottom: 3%;
+}
+
+.project_title {
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: .1rem;
+  font-size: 3rem;
+  margin-bottom: 1%;
+}
+
+.guide {
+  padding: 2% 15%;
+  font-size: 1.5rem;
+}
+
+form {
+  padding: 0 3%;
+}
+
+label {
+  font-size: 1.5rem;
+}
+
+.form-control {
+  border-bottom: 1px solid plum;
+  background-color: transparent;
+  color: #FFF;
+}
+
+.form-control:focus {
+  border: 1px solid purple;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.btn {
+  color: #A5F;
+  font-weight: 900;
+}
+.btn:hover{
+  background: purple;
+  
+}
+
+hr {
+  width: 50%;
+}
+
+
+/* ViewPort */
+@media (max-width: 425px) {
+  .box{
+      width: 100% !important;
+      margin: 3%;
+  }
+}
