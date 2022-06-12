@@ -9,14 +9,14 @@ This is a website application: a clone for Awwwards website. Users can sign-up, 
 
 | Behaviour                            |     Input                       |                                                                                                       Output |
 | :---                                 |     :---:                       |                                                                                                         ---: |
-|On clicking on the application link  |       None   |                         Crowne Awards website loads a landing page with a login button ---Users with existing accounts login---New users can register  |
-|Select CNA                            |   input username and password   |                       Hello username, Your account has been created succesfully! Your password is: password  |
-|Select LI                             |Enter your username and password |                                                         Shortcode menu to help you navigate the application  |
-|Save details in the application       |   Enter                         |Enter account, username, password and choose IP to input password or GRP for the app to generate your password|
-|Display stored details                |   Enter DD                      |                                  Here's your list of saved accounts or You don't have any saved details yet  |
-|Find stored details using account name|   Enter FD                      |                                                              Enter the Account Name you want to search for   |
-|Delete existing account detail        |   Enter D                       |                                                     Enter the account name whose details you want to delete  |
-|Exit Application                      |   Enter EX                      |                                                              User exits application                          |
+|On clicking on the application link  |       None   |      Crowne Awards website loads a landing page with a login button ---Users with existing accounts login---New users can register  |
+|Click Login                            |   Input email and password   |                       App loads with sumbmit project, profile and logout buttons.|
+|Click Submit project                   |Enter project title, description, url and screenshot |    New project is created and displayed on home page       |
+|Click Profile  button     |   Enter profile details as desired                       |Profile details updated as populated and displayed on profile page.|
+|Click on project title                |   None                      |     Project page loads with its description and average rating it has been voted on|
+|Click on rate project|    Enter vote on project design, usability and content|             Page displays the votes and average of the vote for the project|
+|Delete project        |   None                       |                                       Logged in user is nolonger able to see the deleted project  |
+|Logout                      |   None                      |                                                              User exits application          |
 
 
 ### Setup/Installation Requirements
