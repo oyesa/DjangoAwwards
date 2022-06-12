@@ -1,0 +1,22 @@
+
+body {
+    overflow-x: hidden !important;
+}
+
+/* div box styling */
+.container {
+    margin: auto;
+    width: 60%;
+    height: 100vh;
+    position: relative;
+}
+
+.welcome {
+    background: #f6f6f6;
+    width: 100%;
+    height: 70%;
+    position: absolute;
+    top: 15%;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, .1);
+}
