@@ -57,8 +57,16 @@
 					<p>{{project.description}}</p>
         </article>
       </div>
+      <div class="card_action">
+        <div class="card_author">
+          <img src="{{project.profile.profile_pic.url}}" alt="user">
+          <div class="card_author">
+            By <a href="{% url 'profile' project.profile.user.id %}">{{project.profile.user.username}}</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
+{% endfor %}
 </div>
 {% endblock content %}
