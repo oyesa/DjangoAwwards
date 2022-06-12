@@ -147,7 +147,7 @@ def create_project(request):
         return redirect("home")
     else:
         form = AddProjectForm()
-    return render(request, 'project/add_project.html', {"form": form, "title":title})
+    return render(request, 'project/create_project.html', {"form": form, "title":title})
 
 #search for a single project
 @login_required(login_url='/accounts/login/')
