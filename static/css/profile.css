@@ -1,8 +1,9 @@
 /* font-family: 'Merienda', cursive;
-font-family: 'Merienda One', cursive; */
+font-family: 'Merienda One', cursive;
+font-family: Roboto; */
 
 @import url('https://fonts.googleapis.com/css2?family=Merienda+One&family=Merienda:wght@400;700&display=swap');
-
+@import 'https://fonts.googleapis.com/css?family=Roboto:700,400';
 
 
 
@@ -63,4 +64,127 @@ body {
 .email span{
   font-size: 2rem;
   font-weight: 700;
+}
+
+label {
+  padding: 0 1.3rem;
+  vertical-align: middle;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: rgba(20, 16, 16, 0.5);
+  border: 1px solid rgba(20, 16, 16, 0.5);
+  min-width: 2.3rem;
+  letter-spacing: 0.2rem;
+  line-height: 3rem;
+  text-align: center;
+  border-radius: 5rem;
+  align-self: flex-start;
+  justify-self: flex-start;
+}
+
+label>span {
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.project-count{
+  padding: 0 6% 3%;
+  display: flex;
+  flex-direction: row;
+}
+
+.projects{
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-right: 3%;
+}
+
+/* .votes{
+  font-size: 1.4rem;
+} */
+
+/* projects */
+
+.project-wrap{
+  padding-left: 7%;
+  padding-right: 7%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 800;
+}
+
+a:hover {
+  color: #2980b9;
+}
+
+h3 {
+  line-height: 1.2;
+  margin-bottom: 1.6rem;
+}
+
+/* .d-flex {
+  display: flex;
+} */
+
+/* .submission {
+  max-width: 50%;
+  padding-left: 1em;
+  padding-right: 1em;
+} */
+
+.card {
+  background-color: whitesmoke;
+  margin-bottom: 1.6rem;
+  z-index: -2;
+}
+
+.card__padding {
+  padding: 1.6rem;
+}
+
+.card__content {
+  position: relative;
+}
+
+.card__image {
+  min-height: 8rem;
+  background-color: whitesmoke;
+}
+
+.card__image img {
+  width: 100%;
+  max-width: 100%;
+  height: 20rem ;
+  display: block;
+  object-fit: cover;
+}
+
+.b-radius {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.radius {
+  border-radius: 2px;
+}
+
+#padding {
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+}
+
+/* .shadowDepth0 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+} */
+
+.shadow{
+  box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.12),
+      0 1px 2px rgba(0, 0, 0, 0.24);
 }
