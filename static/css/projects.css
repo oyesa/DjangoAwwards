@@ -73,7 +73,7 @@ body {
 }
 
 .tabs .tablinks:hover {
-  color: plum;
+  color: #A5F;
 }
 
 .tabs .tablinks.active {
@@ -99,9 +99,132 @@ body {
 }
 #average{
   border: 0px;
-  background: plum;
+  background: #A5F;
   color: purple;
 }
 .d-flex span{
   font-size: 1.4rem;
+}
+
+#Votes{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 0 20%;
+}
+.vote-details, .vote-titles{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  padding-bottom: 3rem;
+}
+
+.invisible{
+  visibility: hidden;
+}
+.vote-title{
+  font-size:1.4rem ;
+  margin-right: -4rem;
+}
+.voter-image{
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.voter-name{
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.voter-name, .content-vote, .design-vote, .usability-vote{
+  align-self: center;
+}
+.content-vote, .design-vote, .usability-vote{
+  font-size: 2rem;
+}
+#Rate {
+  margin: 0 25%;
+}
+
+.no_vote_msg{
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+#rate-form {
+  background: #A5F;
+  border-radius: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  color: #FFF;
+  padding: 2%;
+}
+
+.title {
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: .1rem;
+  font-size: 3rem;
+  margin-bottom: 1%;
+}
+
+hr {
+  width: 50%;
+}
+
+form {
+  padding: 0 3%;
+}
+
+label {
+  font-size: 1.5rem;
+}
+
+.form-control {
+  border-bottom: 1px solid #ccc;
+  background-color: transparent;
+  color: #fff;
+}
+
+.form-control:focus {
+  border: 1px solid purple;
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.btn {
+  color: #A5F;
+  font-weight: 900;
+}
+
+.btn:hover {
+  background: purple;
+
+}
+.guide {
+  padding: 2% 15%;
+  font-size: 1.5rem;
+}
+
+/* Viewport */
+@media (max-width: 425px) {
+  #rate-form {
+      width: 100% !important;
+      margin: 3%;
+  }
+
+  .scrnshot img {
+      width: 100%;
+      height: 40vh;
+      object-fit: cover;
+  }
+
+  #Rate {
+      margin: 0 15%;
+  }
 }
