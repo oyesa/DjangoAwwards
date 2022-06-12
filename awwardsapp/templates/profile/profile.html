@@ -4,21 +4,21 @@
 
 {% block styles %}
 {{ block.super}}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 
 {% block content %}
 
 <div class="profile">
   <div class="prof-1"></div>
-  <div class="profile-center text-center">
+  <div class="prof-2 text-center">
     <img src="{{profile.profile_pic.url}}" class="profile-pic">
     <a href="{{profile.url}}" target="_blank"><h3 class="username">{{profile.user.username}}&nbsp;<sup><i class="fas fa-share"></i></sup></h3></a>
     <div class="text-muted location">{{profile.location}}</div>
     <div class="bio">{{profile.bio}}</div>
     <div class="email"><span><i class="fas fa-at"></i></span>&nbsp;&nbsp;{{profile.email}}</div>
   </div>
-  <div class="prof-2">
+  <div class="prof-3">
     {%if average == 0%}
 		{%else%}
 		<label><span>{{average | floatformat:0}}</span> average score</label>

@@ -1,0 +1,66 @@
+/* font-family: 'Merienda', cursive;
+font-family: 'Merienda One', cursive; */
+
+@import url('https://fonts.googleapis.com/css2?family=Merienda+One&family=Merienda:wght@400;700&display=swap');
+
+
+
+
+body {
+  padding-top: 12rem;
+  padding-bottom: 4rem;
+}
+
+.profile {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+
+.profile img {
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.prof-1{
+  width: 31%;
+}
+
+.prof-2 {
+  width: 38%;
+  margin: 0 auto;
+}
+
+
+.prof-3 {
+  width: 31%;
+  display: flex;
+  justify-content: center;
+}
+
+.username{
+  font-weight: 900;
+  font-size: 2.5rem;
+  letter-spacing: .1rem;
+}
+.username .fas{
+  font-size: 1.6rem;
+  margin-bottom: 1%;
+}
+.location{
+  font-size: 1.2rem;
+  margin-bottom: 3%;
+}
+.bio, .email{
+  font-size: 1.4rem;
+  margin-bottom: 2%;
+}
+
+.email span{
+  font-size: 2rem;
+  font-weight: 700;
+}
