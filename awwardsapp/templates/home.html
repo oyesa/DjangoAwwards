@@ -9,12 +9,12 @@
 
 
 {% block content %}
-<hr>
+
 <div class="container-fluid-home">
   <div class="text-center">
     <div class="jumbotron">
-      <h1 style="color: #00F;"><strong>CROWNE AWWARDS</strong></h1>
-      <p style="font-family: 'Merienda', cursive; font-size: 11px;">We are a community of experts and peers where your project can be reviewed based on its design,content and usability.<br> With our community of seasoned UI/UX designers and programmers, rest assured that you are in good hands.<br> Additionally, you'll get comprehensive feedback to improve your skills.</p>
+      <h1 style="color: purple;"><strong>CROWNE AWWARDS</strong></h1>
+      <p style="font-family: 'roboto', sans-serif; font-size: 14px; font-weight: 400;">We are a community of experts and peers where your project can be reviewed based on its design, content and usability.<br> With our community of seasoned UI/UX designers and programmers, rest assured that you are in good hands.<br> Additionally, you'll get comprehensive feedback to improve your skills.</p>
       <form class="navbar-form" role="search" action="">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search Projects" name="category">
@@ -28,7 +28,7 @@
 </div>
 
 <div class="text-left divider">
-	Nominees <span> We need your vote!</span>
+	<p style="font-family: 'roboto', sans-serif;"><strong>Nominees</strong> <span> We need your vote!</span></p>
 </div>
 
 {% if projects %}
@@ -54,4 +54,6 @@
 
 	{% endfor %}
 </div>
+{% endif %}
+
 {% endblock content %}

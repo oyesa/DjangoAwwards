@@ -13,9 +13,9 @@
 
 <div class="create_project">
     <div class="text-center">
-    <div class="project_title">New project</div>
-    <hr>
-    <div class="guide">Create a project inserting all the details as provided.</div>
+    <div class="project_title"><p>New project</p></div>
+    <hr style="margin: auto;" />
+    <div class="guide">Create a project inserting all the details as instructed.</div>
     </div>
     <form action="{%url 'create_project'%}" method="post" enctype="multipart/form-data">
         {%csrf_token%}    
@@ -23,4 +23,4 @@
         <input type="submit" class="btn btn-dark " value=" Add Project">
     </form>
 </div>
-{% endblock %}
+{% endblock content %}

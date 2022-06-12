@@ -57,7 +57,7 @@ def profile(request, profile_id):
       average=total_votes/len(projects)
   except Profile.DoesNotExist:
     raise Http404()
-  return(request, 'user/profile.html', {'profile': profile, 'projects': projects, 'count':projects_count, 'average': average, 'votes': total_votes})
+  return(request, 'profile.html', {'profile': profile, 'projects': projects, 'count':projects_count, 'average': average, 'votes': total_votes})
 
 def create_profile(request):
     current_user = request.user
@@ -72,7 +72,7 @@ def create_profile(request):
 
     else:
         form = UserProfileForm()
-    return render(request, 'user/create_profile.html', {"form": form, "title": title})
+    return render(request, 'create_profile.html', {"form": form, "title": title})
 
 #voting and average calculation 
 @login_required(login_url='/accounts/login')
@@ -127,7 +127,7 @@ def project(request, project_id):
     project.average_content =average_content
     project.save()
 
-  return render(request, 'project/project.html', {"title": title, "form": form, "project": project, "votes": votes, "voted": voted, "total_votes":total_votes})
+  return render(request, 'project.html', {"title": title, "form": form, "project": project, "votes": votes, "voted": voted, "total_votes":total_votes})
 
 #logged in user create a project
 @login_required(login_url='/accounts/login/')
@@ -147,7 +147,7 @@ def create_project(request):
         return redirect("home")
     else:
         form = AddProjectForm()
-    return render(request, 'project/create_project.html', {"form": form, "title":title})
+    return render(request, 'create_project.html', {"form": form, "title":title})
 
 #search for a single project
 @login_required(login_url='/accounts/login/')
@@ -178,15 +178,15 @@ def search_project(request):
                             voted = True
                     except Profile.DoesNotExist:
                         voted = False
-                return render(request, 'project/project.html', {"form": form, "project": project, "voted": voted, "votes": votes, "title": title})
-            return render(request, 'project/search.html', {"projects": projects,"message": message, "count":count, "title": title})
+                return render(request, 'project.html', {"form": form, "project": project, "voted": voted, "votes": votes, "title": title})
+            return render(request, 'search.html', {"projects": projects,"message": message, "count":count, "title": title})
         except Project.DoesNotExist:
             suggestions = Project.display_all_projects()
             message= f"No projects titled {searched_project}"
-            return render(request, 'project/search.html', {"suggestions":suggestions,"message": message, "title": title})
+            return render(request, 'search.html', {"suggestions":suggestions,"message": message, "title": title})
     else:
         message = "No term searched"
-        return render(request,'project/search.html', {"message": message, "title": title})
+        return render(request,'search.html', {"message": message, "title": title})
 
 #rating projects
 @login_required(login_url='/accounts/login/')
@@ -209,7 +209,7 @@ def rate_project(request,project_id):
             return HttpResponseRedirect(reverse('project', args =[int(project.id)]))
     else:
         form = VoteProjectForm()
-    return render(request, 'project/project.html', {"form": form})
+    return render(request, 'project.html', {"form": form})
 
 
 
