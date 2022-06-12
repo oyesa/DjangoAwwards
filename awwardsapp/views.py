@@ -55,7 +55,7 @@ def profile(request, profile_id):
     average=0
     if len(projects)>1:
       average=total_votes/len(projects)
-  except Profile.Exception:
+  except Profile.DoesNotExist:
     raise Http404()
   return(request, 'user/profile.html', {'profile': profile, 'projects': projects, 'count':projects_count, 'average': average, 'votes': total_votes})
 
