@@ -41,7 +41,7 @@
 		<br />
 		<div class="container">
       <h6><a href="{% url 'project' project.id %}">{{project.name}}</a></h6>
-      <small><p>From {{project.location}}</p></small>
+      <small><p>From {{project.profile.location}}</p></small>
       <small><time>{{project.post_date}}</time></small>
 		</div>
     <div class="card__action">

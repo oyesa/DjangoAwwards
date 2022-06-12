@@ -1,0 +1,107 @@
+/* font-family: 'Merienda', cursive;
+font-family: 'Merienda One', cursive; */
+
+@import url('https://fonts.googleapis.com/css2?family=Merienda+One&family=Merienda:wght@400;700&display=swap');
+
+
+body {
+  padding-top: 8rem;
+}
+
+.scrnshot img {
+  width: 100%;
+  height: 65vh;
+  object-fit: cover;
+}
+
+.vote {
+  background-color: #000;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  padding: 2%;
+  font-weight: 900;
+  color: whitesmoke;
+}
+
+.project_details {
+  padding: 3%;
+  margin-bottom: 5rem;
+}
+
+.project_title a{
+  font-size: 3.4rem;
+  font-weight: 900;
+  margin: 2rem 0;
+  color: #444;
+}
+.owner{
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: -1%;
+  margin-bottom: 3%;
+  letter-spacing: 1px;
+}
+.owner span a{
+  color: #000;
+}
+
+.project_description {
+  font-size: 1.6rem;
+  margin: 0 15% 2%;
+}
+
+.d-flex{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.tabs {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+  margin-top: 5rem;
+}
+
+.tablinks {
+  margin: 0 2rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.tabs .tablinks:hover {
+  color: plum;
+}
+
+.tabs .tablinks.active {
+  color: purple;
+}
+
+.tabcontent {
+  display: none;
+  padding-top: 5rem;
+}
+
+#average, .design, .usability, .d-flex > .content{
+  font-weight: 700;
+  width: 9rem;
+  height: 9rem;
+  font-size: 3rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 4px solid purple;
+  border-radius: 50%;
+  margin: 2rem;
+}
+#average{
+  border: 0px;
+  background: plum;
+  color: purple;
+}
+.d-flex span{
+  font-size: 1.4rem;
+}
