@@ -136,10 +136,10 @@ def create_project(request):
     if request.method == "POST":
         form = AddProjectForm(request.POST, request.FILES)
         current_user = request.user
-        try:
-            profile = Profile.objects.get(user = current_user)
-        except Profile.DoesNotExist:
-            raise Http404()
+        # try:
+        profile = Profile.objects.get(user = current_user)
+        # except Profile.DoesNotExist:
+        #     raise Http404()
         if form.is_valid():
             project = form.save(commit= False)
             project.profile = profile

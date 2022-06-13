@@ -10,79 +10,79 @@ from django.db.models import IntegerField
 # Create your models here.
 class Profile(models.Model):
   user=models.OneToOneField(User, on_delete=models.CASCADE)
-  profile_pic=CloudinaryField('Profile Picture')
-  bio=models.TextField()
-  email=models.EmailField()
-  url=models.URLField()
-  location=models.CharField(max_length=50)
+  profile_pic=CloudinaryField('image')
+  bio=models.TextField(max_length=255, blank=True, null=True)
+  contact=models.CharField(max_length=255, blank=True, null=True)
 
   #define methods
   def save_profile(self):
     self.save()
 
-  def edit_bio(self, new_bio):
-    self.bio=new_bio
-    self.save()
-
   def delete_profile(self):
     self.delete()
+
+  @classmethod
+  def filter_by_id(cls, id):
+        profile = Profile.objects.filter(user=id).first()
+        return profile
 
   def __str__(self):
     return self.user.username
 
 class Project(models.Model):
-  name=models.CharField(max_length=50)
-  description=models.TextField()
-  # location=models.CharField(max_length=50)
+  user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+  title = models.CharField(max_length=155, blank=True, null=True)
+  description = models.TextField()
+  location=models.CharField(max_length=50, default="Kenya")
   url=models.URLField()
-  screenshot=CloudinaryField('Project Screenshot')
-  voters=models.IntegerField(default=0)
-  profile=models.ForeignKey(Profile, on_delete=models. CASCADE)
+  screenshot=CloudinaryField('image')
   post_date=models.DateTimeField(auto_now_add=True, null=True)
-  average_design = models.FloatField(default=0,)
-  average_usability = models.FloatField(default=0)
-  average_content = models.FloatField(default=0)
-  average_score = models.FloatField(default=0)
-  
 
-  #methods
+  #define methods
   def save_project(self):
-    self.save()
+      self.save()
+
+  def update_project(self, **kwargs):
+      for key, value in kwargs.items():
+          setattr(self, key, value)
+      self.save()
 
   def delete_project(self):
-    self.delete()
-
-  def vote_count(self):
-    return self.vote.count()
+      self.delete()
 
   def __str__(self):
-    return self.name
+      return self.title
 
   #classmethods
   @classmethod
-  def get_user_project(cls, profile):
-    return cls.objects.filter(profile=profile)
+  def get_all_projects(cls):
+      projects = cls.objects.all()
+      return projects
 
   @classmethod
-  def display_projects(cls):
-    return cls.objects.all()
+  def search_project_title(cls, search_term):
+    projects= cls.objects.filter(title=search_term)
+    return projects
 
   @classmethod
-  def search_project(cls, name):
-    return cls.objects.filter(name=name)
-
-  class Meta:
-    ordering=['-post_date']
+  def get_projects_by_user(cls, user):
+      projects = cls.objects.filter(user=user)
+      return projects
+  
+  @classmethod
+  def get_project_by_id(cls, id):
+      project = cls.objects.get(id=id)
+      return project
 
 
 class Vote(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
   project=models.ForeignKey(Project, on_delete=models.CASCADE, related_name='votes')
-  voter=models.ForeignKey(Profile, on_delete=models.CASCADE)
   post_date=models.DateTimeField(auto_now_add=True)
-  #voting critirea and scale
-  design = IntegerField(default=0)
-  usability = IntegerField(default=0)
-  content = IntegerField(default=0)
+  design_rate = models.IntegerField(default=0, blank=True, null=True)
+  usability_rate = models.IntegerField(default=0, blank=True, null=True)
+  content_rate = models.IntegerField(default=0, blank=True, null=True)
+  average_rate = models.IntegerField(default=0, blank=True, null=True)
 
   #methods
   def save_vote(self):
@@ -92,24 +92,12 @@ class Vote(models.Model):
     self.delete()
 
   @classmethod
-  def get_project_votes(cls, project):
-    return cls.objects.filter(project=project)
+  def filter_by_id(cls, id):
+      rating = Vote.objects.filter(id=id).first()
+      return rating
 
-  @classmethod
-  def get_voters(cls, voter):
-    return cls.objects.filter(voter=voter)
+  def __str__(self):
+      return self.user.username
 
-  class Meta:
-    ordering=['-post_date']
-
-
-class IntegerRangeField(models.IntegerField):
-    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
-        self.min_value, self.max_value = min_value, max_value
-        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
-    def formfield(self, **kwargs):
-        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
-        defaults.update(kwargs)
-        return super(IntegerRangeField, self).formfield(**defaults)
 
   
