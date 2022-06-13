@@ -21,8 +21,7 @@ import cloudinary.api
 # Create your views here.
 
 def home(request):
-  title='Crowne Awards'
-  projects=Project.objects.all()
+  project=Project.objects.all()
   latest_project=project[0]
   rating= Vote.objects.filter(project_id=latest_project.id).first()
 
@@ -164,9 +163,6 @@ def delete_project(request, id):
 
 
   
-
-
-
 
 #API Views
 class ProfileList(APIView):

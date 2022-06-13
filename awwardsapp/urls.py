@@ -8,15 +8,16 @@ from django.conf.urls.static import static
 
 urlpatterns =[
 path('', views.home, name='home'),
-re_path(r'^profile/(?P<profile_id>\d+)',views.profile,name = 'profile'),
-re_path(r'^create_profile/$',views.create_profile,name = 'create_profile'),
-re_path(r'^project/(?P<project_id>\d+)',views.project,name = 'project'),
-re_path(r'^create_project/$',views.create_project,name = 'create_project'),
-re_path(r'^search_project/$',views.search_project,name = 'search_project'),
-re_path(r'^rate_project/(?P<project_id>\d+)',views.rate_project,name = 'rate_project'),
+path("profile/", views.profile, name="profile"),
+path("accounts/profile/", views.profile, name="profile"),
+path("profile/update/", views.update_profile, name="update_profile"),
+path("project/save/", views.save_project, name="save_project"),
+path("project/<int:project_id>/", views.project_details, name="project_details"),
+path("project/delete/<int:id>/", views.delete_project, name="delete_project"),
+path("project/rate/<int:id>/", views.rate_project, name="rate_project"),
+path("search/", views.search_project_title, name="search_project_title"),
 path('login/', auth_views.LoginView.as_view, name='login'),
 path('logout/', auth_views.LogoutView.as_view, name='logout'),
-#
 path('api/profiles/', views.ProfileList.as_view()),
 path('api/projects/', views.ProjectList.as_view()), 
 ]

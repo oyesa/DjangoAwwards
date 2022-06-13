@@ -10,9 +10,9 @@ from rest_framework import serializers
 class ProfileSerializer(serializers.ModelSerializer):
   class Meta:
     model=Profile
-    fields=('user', 'profile_pic', 'bio', 'location', 'email', 'url')
+    fields=('user', 'profile_pic', 'bio', 'contact')
 
 class ProjectSerializer(serializers.ModelSerializer):
   class Meta:
     model=Project
-    fields = ('name', 'description','screenshot', 'link', 'profile', 'post_date', 'average_design', 'average_content', 'average_score', 'average_usability')
+    fields = ('user', 'description', 'title', 'screenshot', 'url', 'location', 'post_date')
