@@ -3,9 +3,6 @@ from rest_framework import serializers
 
 
 
-
-
-
 #Serialize models here
 class ProfileSerializer(serializers.ModelSerializer):
   class Meta:

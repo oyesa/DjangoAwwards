@@ -22,10 +22,10 @@ import cloudinary.api
 
 def home(request):
   project=Project.objects.all()
-  latest_project=project[0]
-  rating= Vote.objects.filter(project_id=latest_project.id).first()
+#   latest_project=project[0]
+#   rating= Vote.objects.filter(project_id=latest_project.id).first()
 
-  return render(request, 'home.html', {"projects": project, "project_home": latest_project, "rating": rating})
+  return render(request, 'home.html', {"projects": project})
  
 #user profile
 @login_required(login_url='/accounts/login')

@@ -30,7 +30,7 @@ class Profile(models.Model):
     return self.user.username
 
 class Project(models.Model):
-  user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+  user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="projects",null=True)
   title = models.CharField(max_length=155, blank=True, null=True)
   description = models.TextField()
   location=models.CharField(max_length=50, default="Kenya")
