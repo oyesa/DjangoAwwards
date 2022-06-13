@@ -9,14 +9,42 @@
 
 
 {% block content %}
-<hr>
+<style>
+  .jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: .3rem;
+}
+
+#search-box{
+    margin-bottom: 5%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: capitalize;
+}
+
+#search-box input{
+    height: 25px;
+    text-align: center;
+    font-size: 13px;
+    background-color:  #D3D3D3;
+}
+
+#search-box::placeholder{
+    color: plum;
+}
+</style>
 <div class="container-fluid-home">
   <div class="text-center">
     <div class="jumbotron">
       <h1 style="color: purple;"><strong>CROWNE AWWARDS</strong></h1>
       <p style="font-family: 'roboto', sans-serif; font-size: 14px; font-weight: 400;">We are a community of experts and peers where your websites can be reviewed based on its design, content and usability.<br> With our community of seasoned UI/UX designers and programmers, rest assured that you are in good hands.<br> Additionally, you'll get comprehensive feedback to improve your skills.</p>
       <form class="navbar-form" role="search" action="{% url 'search_project_title' %}">
-        <div class="input-group">
+        <div class="input-group"  id="search-box">
           <input type="text" class="form-control" placeholder="search project" name="category">
           <div class="input-group-btn">
             <button class="btn btn-default" id="home-btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
@@ -28,7 +56,7 @@
 </div>
 
 <div class="text-left divider">
-	<p style="font-family: 'roboto', sans-serif;"><strong>Nominees</strong> <span> We need your vote!</span></p>
+	<p style="font-family: 'roboto', sans-serif; font-size: 14px; font-weight: 400;"><strong>Nominees</strong> <span> We need your vote!</span></p>
 </div>
 
 {% if projects %}

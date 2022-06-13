@@ -34,7 +34,7 @@ class Project(models.Model):
   title = models.CharField(max_length=155, blank=True, null=True)
   description = models.TextField()
   location=models.CharField(max_length=50, default="Kenya")
-  url=models.URLField()
+  url=models.URLField(blank=True)
   screenshot=CloudinaryField('image')
   post_date=models.DateTimeField(auto_now_add=True, null=True)
 

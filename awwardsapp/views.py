@@ -56,14 +56,14 @@ def update_profile(request):
         user = User.objects.get(id=current_user.id)
         if Profile.objects.filter(user_id=current_user.id).exists():
             profile = Profile.objects.get(user_id=current_user.id)
-            profile.profile_photo = profile_url
+            profile.profile_pic = profile_url
             profile.bio = bio
             profile.contact = contact
             profile.save()
         else:
             profile = Profile(
                 user_id=current_user.id,
-                profile_photo=profile_url,
+                profile_pic=profile_url,
                 bio=bio,
                 contact=contact,
             )

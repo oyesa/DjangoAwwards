@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-{% bootstrap3 %}
+{% bootstrap5 %}
 {% load static %}
 
 
@@ -8,53 +8,66 @@
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock %}
 
-
 {% block content %}
-{% if projects %}
-<div class="search-title">
-    <p style="text-align: center;">Found {{count}} projects titled <span>{{message}}</span></p>
-</div>
-<div class="submissions-wrapper">
-	{% for project in projects %}
-	<div class="col-md-4">
-		<div class="card radius shadowDepth1">
-			<div class="card__image border-tlr-radius">
-				<a href="{% url 'project' project.id %}"><img src="{{project.screenshot.url}}"
-					alt="image" class="border-tlr-radius"></a>
-			</div>
-			<div class="card__content card__padding">
-				<div class="card__share">
-					<a id="share" class="share-icon" href="{{project.url}}" target="_blank"><i class="fas fa-share"></i></a>
-				</div>
-				<div class="card__meta">
-					{%if project.average_score != 0.0 %}
-					<a href="#">{{project.average_score}}</a>
-					{%else%}
-					{% endif %}
-					<time>{{project.post_date}}</time>
-				</div>
-				<article class="card__article">
-					<h3><a href="{% url 'project' project.id %}">{{project.name}}</a></h3>
-					<p>{{project.description}}</p>
-				</article>
-			</div>
-			<div class="card__action">
-				<div class="card__author">
-					<img src="{{project.profile.profile_pic.url}}" alt="user">
-					<div class="card__author-content">
-						By <a href="{% url 'profile' project.profile.user.id %}">{{project.profile.user.username}}</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	{% endfor %}
-</div>
-{% else %}
-<div class="search-title">
-    Found no projects titled <span>{{message}}</span>
-</div>
-<div class="suggestions-title">Go back <a href="/">home</a> to see more projects</div>
 
-{% endif %}
-{% endblock content %}
+<section class="blog-section" id="posts">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h2 class="display-6 mt-4 headings">
+                    {% if message %}
+                      <span class="text-bold">{{ message }}</span>
+                    {% endif %}
+                </h2>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row mt-4">
+            {% for project in projects %}
+            <div class="col-md-12 col-lg-3">
+                <div class="card mb-4 post-card">
+                    <img src="{{ project.screenshot.url }}"
+                        class="card-img-top" alt="Personal">
+                    <div class="card-body">
+                        <a href="{% url 'project_details' project.id %}">
+                            <h6 class="fade-item mb-2">{{ project.title }}</h6>
+                            <div class="d-flex justify-content-between location-date">
+                                <div>
+                                    <p class="text-uppercase">{{ project.location }}</p>
+                                </div>
+                                <div>
+                                    <p>{{ project.date|date}}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div class="d-flex justify-content-start">
+                                    <div>
+                                        {% if project.user.profile_image %}
+                                        <img src="{{ project.user.profile_image.url }}"
+                                            class="poster-img" alt="Author">
+                                        {% else %}
+                                        <img src=""
+                                            class="poster-img" alt="Author">
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <p class="author mt-2 text-uppercase"><strong>BY <strong>{{ project.user.first_name }} {{ project.user.last_name }}</strong></strong></p>
+                                    </div>
+                                </div>
+                                <div class="display-on-hover">
+                                    <a href="{% url 'project_details' project.id %}" class="btn btn-custome"><small>Vote</small></a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
