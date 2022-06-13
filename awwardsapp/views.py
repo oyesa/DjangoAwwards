@@ -1,215 +1,169 @@
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 import datetime as dt
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Project, Vote
 from django.contrib.auth.models import User
-from django.core import exceptions
 from .forms import *
-from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework import status
 from rest_framework.response import Response
+# from .permissions import IsAdminOrReadOnly
 from .serializers import *
 
-
-
-
-
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 
 
 # Create your views here.
-#Homepage
-# @login_required(login_url='/accounts/login')
+
 def home(request):
   title='Crowne Awards'
-  date=dt.date.today()
-  projects=Project.display_projects()
-  projects_scores=projects.order_by('-average_score')
-  highest_score=None
-  highest_votes=None
+  projects=Project.objects.all()
+  latest_project=project[0]
+  rating= Vote.objects.filter(project_id=latest_project.id).first()
 
-  if len(projects)>=1:
-    highest_score=projects_scores[0]
-    votes=Vote.get_project_votes(highest_score.id)
-    highest_votes=votes[:3]
-  return render(request, 'home.html', {'title':title, 'date':date, 'votes': highest_votes, 'projects': projects, 'highest': highest_score})
+  return render(request, 'home.html', {"projects": project, "project_home": latest_project, "rating": rating})
  
 #user profile
 @login_required(login_url='/accounts/login')
-def profile(request, profile_id):
-  try:
-    user=User.objects.get(pk=profile_id)
-    profile=Profile.objects.get(user=user)
-    title=profile.user.username
-    projects=Project.get_user_project(profile.id)
-    projects_count=projects.count()
-    votes=[]
-
-    for project in projects:
-      votes.append(project.average_score)
-    total_votes=sum(votes)
-    average=0
-    if len(projects)>1:
-      average=total_votes/len(projects)
-  except Profile.DoesNotExist:
-    raise Http404()
-  return(request, 'profile.html', {'profile': profile, 'projects': projects, 'count':projects_count, 'average': average, 'votes': total_votes})
-
-def create_profile(request):
+def profile(request):
     current_user = request.user
-    title = "Create Profile"
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES)
-        if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user = current_user
+    profile = Profile.objects.filter(user_id=current_user.id).first()
+    project = Project.objects.filter(user_id=current_user.id).all()
+
+    return render(request, "profile.html", {"profile": profile, "screenshots": project})
+
+
+@login_required(login_url="/accounts/login/")
+def update_profile(request):
+    if request.method == "POST":
+        current_user = request.user
+        first_name = request.POST["first_name"]
+        last_name = request.POST["last_name"]
+        username = request.POST["username"]
+        email = request.POST["email"]
+
+        bio = request.POST["bio"]
+        contact = request.POST["contact"]
+
+        profile_image = request.FILES["profile_pic"]
+        profile_image = cloudinary.uploader.upload(profile_image)
+        profile_url = profile_image["url"]
+
+        user = User.objects.get(id=current_user.id)
+        if Profile.objects.filter(user_id=current_user.id).exists():
+            profile = Profile.objects.get(user_id=current_user.id)
+            profile.profile_photo = profile_url
+            profile.bio = bio
+            profile.contact = contact
             profile.save()
-        return HttpResponseRedirect('/')
+        else:
+            profile = Profile(
+                user_id=current_user.id,
+                profile_photo=profile_url,
+                bio=bio,
+                contact=contact,
+            )
+            profile.save_profile()
 
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = username
+        user.email = email
+
+        user.save()
+
+        return redirect("/profile", {"success": "Profile update successful"})
     else:
-        form = UserProfileForm()
-    return render(request, 'create_profile.html', {"form": form, "title": title})
+        return render(request, "profile.html", {"danger": "Profile update unsuccessful"})
 
-#voting and average calculation 
-@login_required(login_url='/accounts/login')
-def project(request, project_id):
-  form=VoteProjectForm()
-  project = Project.objects.get(pk=project_id)
-  title=project.name.title()
-  votes=Vote.get_project_votes(project.id)
-  total_votes=votes.count()
-  voted=False
+#project views 
+def project_details(request, project_id):
+    project = Project.objects.get(id=project_id)
+    rating = Vote.objects.filter(project=project)
+    return render(request, "project.html", {"project": project, "rating": rating})
 
-  voters_list=[]
-  average_list=[]
-  design_list=[]
-  usability_list=[]
-  content_list=[]
-  for vote in votes:
-    voters_list.append(vote.voter.id)
-    average_sum=vote.design + vote.usability + vote.content
-    average=average_sum/3
-    average_list.append(average)
-    design_list.append(vote.design)
-    usability_list.append(vote.usability)
-    content_list.append(vote.content)
-
-    try:
-      user=User.objects.get(pk=request.user.id)
-      profile=Profile.objects.get(user=user)
-      voter=Vote.get_voters(profile)
-      voted=False
-      if request.user.id in voters_list:
-        voted=True
-    except Profile.DoesNotExist:
-      voted=False
-  print('USER')
-  print(request.user.id)
-  print(project.profile.user.id)
-  average_score=0
-  average_design=0
-  average_usability=0
-  average_content=0
-  if len(average_list)>0:
-    average_score=sum(average_list) / len(average_list)
-    project.average_score=average_score
-    project.save()
-  if total_votes !=0:
-    average_design = sum(design_list) / total_votes
-    average_usability = sum(usability_list) / total_votes 
-    average_content = sum(content_list) / total_votes
-    project.average_design = average_design
-    project.average_usability = average_usability
-    project.average_content =average_content
-    project.save()
-
-  return render(request, 'project.html', {"title": title, "form": form, "project": project, "votes": votes, "voted": voted, "total_votes":total_votes})
-
-#logged in user create a project
-@login_required(login_url='/accounts/login/')
-def create_project(request):
-    title = "Create a project"
+@login_required(login_url="/accounts/login/")
+def save_project(request):
     if request.method == "POST":
-        form = AddProjectForm(request.POST, request.FILES)
         current_user = request.user
-        # try:
-        profile = Profile.objects.get(user = current_user)
-        # except Profile.DoesNotExist:
-        #     raise Http404()
-        if form.is_valid():
-            project = form.save(commit= False)
-            project.profile = profile
-            project.save()
-        return redirect("home")
-    else:
-        form = AddProjectForm()
-    return render(request, 'create_project.html', {"form": form, "title":title})
+        title = request.POST["title"]
+        location = request.POST["location"]
+        description = request.POST["description"]
+        url = request.POST["url"]
+        screenshot = request.FILES["image"]
+        screenshot = cloudinary.uploader.upload(screenshot, crop="limit", width=500, height=500) # set image size
+        image_url = screenshot["url"]
 
-#search for a single project
-@login_required(login_url='/accounts/login/')
-def search_project(request):
-    if "project" in request.GET and request.GET["project"]:
-        searched_project = request.GET.get("project")
-        title = "CrowneAwards | search"
-        voted = False
-        try:
-            projects = Project.search_project(searched_project)
-            count = projects.count()
-            message =f"{searched_project}"
-            if len(projects) == 1:
-                project = projects[0]
-                form = VoteProjectForm()
-                title = project.name.upper()
-                votes = Vote.get_project_votes(project.id)
-                voters = project.voters
-                
-                for vote in votes:
-                    try:
-                        user = User.objects.get(pk = request.user.id)
-                        profile = Profile.objects.get(user = user)
-                        voter = Vote.get_project_voters(profile)
-                        voters_list=[]
-                        voted = False
-                        if request.user.id in voters_list: 
-                            voted = True
-                    except Profile.DoesNotExist:
-                        voted = False
-                return render(request, 'project.html', {"form": form, "project": project, "voted": voted, "votes": votes, "title": title})
-            return render(request, 'search.html', {"projects": projects,"message": message, "count":count, "title": title})
-        except Project.DoesNotExist:
-            suggestions = Project.display_all_projects()
-            message= f"No projects titled {searched_project}"
-            return render(request, 'search.html', {"suggestions":suggestions,"message": message, "title": title})
-    else:
-        message = "No term searched"
-        return render(request,'search.html', {"message": message, "title": title})
+        project = Project(
+            user_id=current_user.id,
+            title=title,
+            location=location,
+            description=description,
+            url=url,
+            screenshot=image_url,
+        )
+        project.save_project()
 
-#rating projects
+        return redirect("/profile", {"success": "Project Saved Successfully"})
+    else:
+        return render(request, "profile.html", {"danger": "Project Save Failed"})
+
+
+#rate projects
 @login_required(login_url='/accounts/login/')
-def rate_project(request,project_id):
+def rate_project(request, id):
     if request.method == "POST":
-        form = VoteProjectForm(request.POST)
-        project = Project.objects.get(pk = project_id)
+        project = Project.objects.get(id=id)
         current_user = request.user
-        try:
-            user = User.objects.get(pk = current_user.id)
-            profile = Profile.objects.get(user = user)
-        except Profile.DoesNotExist:
-            raise Http404()
+        design_rate=request.POST["design"]
+        usability_rate=request.POST["usability"]
+        content_rate=request.POST["content"]
 
-        if form.is_valid():
-            vote = form.save(commit= False)
-            vote.voter = profile
-            vote.project = project
-            vote.save_vote()
-            return HttpResponseRedirect(reverse('project', args =[int(project.id)]))
+        Vote.objects.create(
+            project=project,
+            user=current_user,
+            design_rate=design_rate,
+            usability_rate=usability_rate,
+            content_rate=content_rate,
+            average_rate=round((float(design_rate)+float(usability_rate)+float(content_rate))/3,2),
+        )
+        average_rating= (int(design_rate)+int(usability_rate)+int(content_rate))/3
+        project.rate=average_rating
+        project.update_project()
+
+        return render(request, "project.html", {"success": "Project Rated!", "project": project, "rating": Vote.objects.filter(project=project)})
     else:
-        form = VoteProjectForm()
-    return render(request, 'project.html', {"form": form})
+        project = Project.objects.get(id=id)
+        return render(request, "project.html", {"danger": "Rating Failed", "project": project})
+
+
+# search for project
+def search_project_title(request):
+    if 'search_term' in request.GET and request.GET["search_term"]:
+        search_term = request.GET.get("search_term")
+        searched_projects = Project.objects.filter(title=search_term)
+        message = f"Search For: {search_term}"
+
+        return render(request, "search.html", {"message": message, "projects": searched_projects})
+    else:
+        message = "No term searched, please input search term"
+        return render(request, "search.html", {"message": message})
+
+
+# delete project
+@login_required(login_url="/accounts/login/")
+def delete_project(request, id):
+    project = Project.objects.get(id=id)
+    project.delete_project()
+    return redirect("/profile", {"success": "Project Deleted"})
+
+
+  
 
 
 
