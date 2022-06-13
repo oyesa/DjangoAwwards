@@ -8,7 +8,54 @@
 {% endblock %}
 
 {% block content %}
+<style>
+  a,
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: black;
+}
 
+#fa {
+  color: rgb(0, 174, 255);
+  font-size: 15px;
+}
+
+.fade-item {
+  font-weight: 300;
+  color: rgb(63, 63, 63);
+  /* text-transform: uppercase; */
+}
+
+/* .btn,
+.btn:hover {
+  background-color: var(--main-color);
+  color: #fff;
+} */
+
+.btn-outline-dark,
+.btn-outline-dark:hover {
+  background-color: transparent;
+  color: black;
+}
+
+.btn-custome,
+.btn-custome:hover {
+  background-color: #8154ef;
+  color: #fff;
+  border-radius: 20px;
+  font-size: 10px;
+}
+
+.b-r {
+  text-transform: uppercase;
+  border-radius: 20px;
+  padding: 7px;
+}
+.bg-lightdark {
+  background-color: #dbdbdb;
+}
+</style>
 <section class="profile container">
   <div class=" mt-5">
       <div class="row">
@@ -19,7 +66,7 @@
                   <img src="{{profile.profile_pic.url}}" alt="" class="card-img-top">
                   {%else%}
                   <img src="https://res.cloudinary.com/oyesa/image/upload/v1654355601/profile-pics/blank-avatar_huoxz5.png"
-                      class="card-img-top" alt="profile picture">
+                      class="card-img-top" alt="profile picture" >
                   {% endif %}
                   <div class="card-body text-center">
                       <h4 class="card-text">
@@ -51,7 +98,7 @@
                       <div class="card p-2">
                           <button type="button" class="btn btn-lg m-3" data-bs-toggle="modal"
                               data-bs-target="#profileModal">
-                              <i class="fa fa-plus text-white"></i> Update Profile
+                              <i class="fa fa-plus text-white" id="fa"></i> Update Profile
                           </button>
                           <div class="modal fade" id="profileModal" tabindex="-1" role="dialog"
                               aria-labelledby="profileModalLabel" aria-hidden="true">
@@ -136,13 +183,12 @@
                       {{ danger }}
                   </div>
                   {% endif %}
-                  <!-- button to open add picture modal -->
+                  <!-- Modal -->
                   <div class="col-md-12">
                       <button type="button" class="btn btn-lg m-3" data-bs-toggle="modal"
                           data-bs-target="#exampleModal">
                           <i class="fa fa-plus text-white"></i> Create Project
                       </button>
-                      <!-- modal -->
                       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                           aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">

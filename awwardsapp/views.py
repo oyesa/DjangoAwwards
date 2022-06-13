@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from .forms import *
 from django.urls import reverse
 from rest_framework.views import APIView
+from .permissions import IsAdminOrReadOnly
 from rest_framework import status
 from rest_framework.response import Response
 # from .permissions import IsAdminOrReadOnly
@@ -95,7 +96,7 @@ def save_project(request):
         description = request.POST["description"]
         url = request.POST["url"]
         screenshot = request.FILES["image"]
-        screenshot = cloudinary.uploader.upload(screenshot, crop="limit", width=500, height=500) # set image size
+        screenshot = cloudinary.uploader.upload() 
         image_url = screenshot["url"]
 
         project = Project(
@@ -165,15 +166,17 @@ def delete_project(request, id):
   
 
 #API Views
-class ProfileList(APIView):
-    def get(self,request,format = None):
-        profiles =  Profile.objects.all()
-        serializers = ProfileSerializer(profiles, many=True)
-        return Response(serializers.data) 
+class ProfileList(APIView): 
+    permission_classes = (IsAdminOrReadOnly,)
+    def get(self, request, format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many=True)
+        return Response(serializers.data)
 
 
-class ProjectList(APIView):
-    def get(self,request,format = None):
-        projects =  Project.objects.all()
-        serializers = ProjectSerializer(projects, many=True)
-        return Response(serializers.data) 
+class ProjectList(APIView): 
+    permission_classes = (IsAdminOrReadOnly,)
+    def get(self, request, format=None):
+        all_projects = Project.objects.all()
+        serializers = ProjectSerializer(all_projects, many=True)
+        return Response(serializers.data)

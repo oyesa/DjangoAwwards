@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.contrib.auth import views 
 from django_registration.backends.one_step.views import RegistrationView
 
 
@@ -28,4 +29,5 @@ urlpatterns = [
     path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path("api-auth/", include("rest_framework.urls")),
+    path('logout/', views.logout_then_login, name='logout'),
 ]

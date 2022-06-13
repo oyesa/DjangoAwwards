@@ -1,20 +1,74 @@
 
 <!-- Navbar -->
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Merienda:wght@700&amp;display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Aclonica&display=swap");
 
 .navbar-brand img{
     height: 40px;
     position: relative;
 }
 
-/* .text-primary{
-	height: 20px;
-} */
+.navbar-brand {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-family: "Aclonica", sans-serif;
+}
+
+.navbar-brand{
+	color: white !important;
+}
+.navbar{
+position: fixed;
+top: 0;
+width: 100%;
+background: #A5F; 
+background: -webkit-linear-gradient(to right, purple, #A5F);
+background: linear-gradient(to right, purple, #A5F);
+}
 </style>
-<nav class="navbar navbar-expand-lg">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">CROWNE AWARDS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'profile' %}">{{ user.username }}</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Api's
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/api/profiles/">Profile</a></li>
+            <li><a class="dropdown-item" href="/api/projects/">Project</a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/accounts/login" tabindex="-1" aria-disabled="true">Logout</a>
+        </li>
+				
+      </ul>
+      <form class="d-flex" action="{% url 'search_project_title' %}">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<!-- <nav class="navbar navbar-expand-lg">
 	<div class="container container-fluid">
 			<a class="navbar-brand" href="/">
-					<img src="static/img/home-logo.jpg" class="icon" alt="">
+					CROWNE AWARDS
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
 					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,16 +78,17 @@
 			<div class="collapse navbar-collapse" id="navbarContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					</ul>
+					
 					<ul class="navbar-nav nav-right">
 							<li class="nav-item text-center">
 									{% if user.is_authenticated %}
+									<span class="nav-link text-dark"><a href="{% url 'logout'%}"><button type="button" class="btn btn-default" class="text-primary">Logout</button></a></span>
 									<span class="nav-link text-dark"><a href="{% url 'profile' %}" class="text-primary"><i class="fa fa-user-alt"></i><br><strong>{{ user.username }}</strong></a></span>
 									{% else %}
-									<span class="nav-link text-dark">Have an Account? <a href="/accounts/login"
-													class="text-primary"><strong>Log In</strong></a></span>
+									<span class="nav-link text-dark"><a href="/accounts/login" class="text-primary"><strong>Log In</strong></a></span>
 									{% endif %}
 							</li>
 					</ul>
 			</div>
 	</div>
-</nav>
+</nav> -->

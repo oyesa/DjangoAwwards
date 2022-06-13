@@ -37,52 +37,249 @@
 #search-box::placeholder{
     color: plum;
 }
+
+/* PROJECTS */
+.submissions-wrapper {
+    padding-left: 3%;
+    padding-right: 3%;
+    display: flex;
+    margin-right: 10px;
+    /* flex-wrap: wrap; */
+}
+a {
+    text-decoration: none;
+    color: #A5F;
+    font-weight: 800;
+}
+
+a:hover {
+    color: #2980b9;
+}
+
+h3 {
+    line-height: 1.2;
+    margin-bottom: 1.6rem;
+}
+
+.submission {
+    max-width: 50%;
+    /* margin: 50px auto; */
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+/* Helpers*/
+.border-tlr-radius {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.radius {
+    border-radius: 2px;
+}
+
+.padding-tb {
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+}
+
+.shadowDepth0 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.shadowDepth1 {
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+/* Card Styles*/
+
+.card {
+    background-color: #fff;
+    margin-bottom: 1.6rem;
+    z-index: -2;
+}
+
+.card_padding {
+    padding: 1.6rem;
+}
+
+.card_image {
+    min-height: 8rem;
+    background-color: #eee;
+}
+
+.card_image img {
+    width: 100%;
+    max-width: 100%;
+    height: 20rem ;
+    display: block;
+    object-fit: cover;
+}
+
+.card_content {
+    position: relative;
+}
+
+/* card meta */
+.card_meta a{
+    margin-right: 0.8rem;
+}
+
+.card_meta time {
+    font-size: 1.5rem;
+    color: #bbb;
+}
+
+/* card article */
+.card_article a {
+    text-decoration: none;
+    text-transform: capitalize;
+    color: #444;
+    transition: all 0.5s ease;
+}
+
+.card_article a:hover {
+    color: #2980b9;
+}
+.card_article p{
+    font-size: 1.2rem;
+}
+/* card action */
+.card_action {
+    overflow: hidden;
+    padding-right: 1.6rem;
+    padding-left: 1.6rem;
+    padding-bottom: 1.6rem;
+}
+
+
+.card_author img,
+.card_author-content {
+    display: inline-block;
+    vertical-align: middle;
+    text-transform: capitalize;
+}
+
+.card_author img {
+    object-fit: cover;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    margin-right: 0.6em;
+}
+
+.card_share {
+    float: right;
+    position: relative;
+    margin-top: -42px;
+}
+
+
+.share-icon {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    outline: 0;
+    font-size: 1.5rem;
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.12),
+        0 2px 4px rgba(0, 0, 0, 0.24);
+}
+
+.share-icon:hover,
+.share-icon:focus {
+    box-shadow:
+        0 3px 6px rgba(0, 0, 0, 0.12),
+        0 3px 6px rgba(0, 0, 0, 0.24);
+
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+#home-pic img{
+  height: 600 !important;
+  width: 700 !important;
+}
+
+.poster-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
 </style>
-<div class="container-fluid-home">
-  <div class="text-center">
-    <div class="jumbotron">
-      <h1 style="color: purple;"><strong>CROWNE AWWARDS</strong></h1>
-      <p style="font-family: 'roboto', sans-serif; font-size: 14px; font-weight: 400;">We are a community of experts and peers where your websites can be reviewed based on its design, content and usability.<br> With our community of seasoned UI/UX designers and programmers, rest assured that you are in good hands.<br> Additionally, you'll get comprehensive feedback to improve your skills.</p>
-      <form class="navbar-form" role="search" action="{% url 'search_project_title' %}">
-        <div class="input-group"  id="search-box">
-          <input type="text" class="form-control" placeholder="search project" name="category">
-          <div class="input-group-btn">
-            <button class="btn btn-default" id="home-btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+
+<header>
+	<div class="container col-xxl-8 px-4 py-5">
+		<div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+			<div class="col-10 col-sm-8 col-lg-6" id="home-pic">
+				<img
+					src="https://res.cloudinary.com/oyesa/image/upload/v1655126995/matt-seymour-o2DXhb7ew8w-unsplash_fwmrcm.jpg"
+					class="d-block mx-lg-auto img-fluid"
+					alt="Bootstrap Themes"
+					loading="lazy" 
+          height="700"
+          width="700"
+				/>
+			</div>
+			<div class="col-lg-6">
+				<h1 class="display-5 fw-bold lh-1 mb-3"
+					>Welcome to the <img src="static/img/home-logo.jpg" class="icon" alt="" style="height: 39px; position: relative;"> Awards!</h1
+				>
+				<p class="lead" style="margin-top: 1rem;"
+					>We are a community of experts and peers where your websites can be reviewed based on its design, content and usability.With our community of seasoned UI/UX designers and programmers, rest assured that you are in good hands.Additionally, you'll get comprehensive feedback to improve your skills. </p
+				>
+			</div>
+		</div>
+	</div>
+</header>
 
 <div class="text-left divider">
-	<p style="font-family: 'roboto', sans-serif; font-size: 14px; font-weight: 400;"><strong>Nominees</strong> <span> We need your vote!</span></p>
+	<p style="font-size: 17px; font-weight: 400;" class="lead"><strong>Nominees</strong> <span> We need your vote!</span></p>
 </div>
 
 {% if projects %}
-<div class="container-fluid d-flex flex-row flex-wrap justify-content-center">
-	{% for project in projects %}
-	<div class="mx-3 my-3 shadow rounded-3" style="width: 25em">
-		<a class="my-2" href="">
-			<img src="{{project.screenshot.url}}" alt="" class="img-fluid h-50 w-100 rounded-3" />
-		</a>
-		<br />
-		<div class="container">
-      <h6><a href="{% url 'project_details' project.id %}">{{project.title}}</a></h6>
-      <small><p>From {{project.location}}</p></small>
-      <small><time>{{project.post_date}}</time></small>
-		</div>
-    <div class="card__action">
-      <div class="card__author">
-        <img src="{{project.user.profile_pic.url}}" alt="user">
-        <div class="card__author-content">
-         <p>{{ project.user.first_name }} {{ project.user.last_name }}</p>
-        </div>
-        <div><a href="{% url 'project_details' project.id %}" class="btn btn-custome"><small>Vote</small></a></div>
+<div class="submissions-wrapper">
+  {% for project in projects %}
+  <div class="col-md-4">
+    <div class="card radius shadowDepth1">
+      <div class="card_image border-tlr-radius">
+        <a href="{% url 'project_details' project.id %}"><img src="{{project.screenshot.url}}" alt="image" class="border-tlr-radius"></a>
       </div>
-
-	{% endfor %}
+      <div class="card_content card_padding">
+        <div class="card_share">
+          <a href="{% url 'project_details' project.id %}" id="share" class="share-icon"><i class="fas fa-share"></i></a>
+        </div>
+        <div class="card_meta" style="font-size: 6px;">
+          <time style="font-size: 6px;">{{project.post_date}}</time>
+        </div>
+        <article class="card_article">
+          <h3 style="font-size: 11px;"><a href="{% url 'project_details' project.id %}">{{project.title}}</a></h3>
+        </article>
+      </div>
+      <div class="card_action">
+        <div class="card_author">
+          <img src="{{project.user.profile_pic.url}}" alt="" class="poster-img">
+          <div class="card_author_content" style="font-size: 6px;">
+            <p style="font-size: 6px;">By {{ project.user.first_name }} {{ project.user.last_name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
-{% endif %}
-
+{%endif%}
 {% endblock content %}
+
+
