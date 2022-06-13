@@ -20,12 +20,10 @@ import cloudinary.api
 
 
 # Create your views here.
-
+@login_required(login_url="/accounts/login/")
 def home(request):
   project=Project.objects.all()
-#   latest_project=project[0]
-#   rating= Vote.objects.filter(project_id=latest_project.id).first()
-
+  
   return render(request, 'home.html', {"projects": project})
  
 #user profile
