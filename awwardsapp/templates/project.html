@@ -13,23 +13,22 @@
 <section class="single-top-header">
     <section class="single-top-header">
         <div class="header">
-            <div class="container">
+            <div class="container mt-0">
                 <div class="row">
                     <div class="col-md-2"></div>
-                    <div class="col-md-8 text-center mt-5">
+                    <div class="col-md-8 text-center">
                         <div class="single-content">
-                            <h2 class="display-6 mt-4 headings">
+                            <h2 class="display-6 headings" style="font-family: 'Montserrat', sans-serif;">
                                 {{ project.title }}
                             </h2>
                             <div class="author mt-5 mb-5">
-                                <p>
+                                <p style="font-family: 'Montserrat', sans-serif;">
                                     By {{ project.user.first_name }} {{ project.user.last_name }}
                                 </p>
-                                <!-- check if author profile exists -->
                                 {% if project.user.profile_pic_path %}
                                 <img src="{{ post.user.profile_pic_path }}" alt="author" class="author-img mt-3">
                                 {% else %}
-                                <img src="https://image.pngaaa.com/303/1721303-middle.png" alt="author"
+                                <img src="https://res.cloudinary.com/oyesa/image/upload/v1655183373/clipart1821286_ghhq5j.png" alt="author"
                                     class="author-img mt-3 mb-3">
                                 {% endif %}
                             </div>
@@ -44,7 +43,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p>
+                    <h6 style="text-align: center; font-family: 'Montserrat', sans-serif;">PROJECT DESCRIPTION</h6>
+                    <hr style="margin: auto;">
+                    <br>
+                    <p style="font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 600;">
                         {{ project.description|safe }}
                     </p>
                 </div>
@@ -72,33 +74,37 @@
                     .btn-design,
                     .btn-design:hover {
                     background-color: transparent;
-                    color: white;
+                    border-radius: 50%;
+                    color: black !important;
                     height: 60px;
                     width: 60px;
                     font-weight: 800;
-                    border: 2px solid rgb(143, 30, 30);
+                    border: 2px solid #000;
                     }
 
                     .btn-usability,
                     .btn-usability:hover {
                     background-color: transparent;
-                    color: white;
+                    color: black !important;
                     border-radius: 50%;
                     font-weight: 800;
                     height: 60px;
                     width: 60px;
-                    border: 2px solid rgb(148, 148, 4);
+                    border: 2px solid #000;
                     }
 
                     .btn-content,
                     .btn-content:hover {
                     background-color: transparent;
-                    color: white;
+                    color: black !important;
                     border-radius: 50%;
                     font-weight: 800;
                     height: 60px;
                     width: 60px;
-                    border: 2px solid rgb(0, 174, 255);
+                    border: 2px solid #000;
+                    }
+                    .commentscontainer{
+                        color: #000 !important;
                     }
 
                 </style>
@@ -108,14 +114,14 @@
                         <div class="d-flex justify-content-between">
                             <div>
                                 <div class="d-flex justify-content-start">
-                                    <div>
-                                        <img src="https://assets.awwwards.com/awards/media/cache/thumb_user_70/avatar/1118370/60a37004dd5ed949501371.png"
-                                            alt="">
+                                    <div class="jury">
+                                        <img src="https://res.cloudinary.com/oyesa/image/upload/v1655184225/juryduty_h7fqvv.webp"
+                                            alt="" style="height: 59px; position: relative;">
                                     </div>
                                     <div class="m-2">
-                                        <h5 class="text-capitalize">{{ vote.user.first_name }} {{ vote.user.last_name }}</h5>
-                                        <p><a class="text-primary text-capitalize">{{ vote.user.username }}</a></p>
-                                        <span class="badge rounded-pill bg-info text-white">{{ vote.average_rate }}</span>
+                                        <h5 class="text-capitalize" style="color: #000 !important;">{{ vote.user.first_name }} {{ vote.user.last_name }}</h5>
+                                        <p><a class="text-primary text-capitalize" style="color: #000 !important;">{{ vote.user.username }}</a></p>
+                                        <span class="badge rounded-pill bg-info" style="color: #000 !important;">{{ vote.average_rate }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -165,22 +171,22 @@
                                             <form action="{% url 'rate_project' project.id %}" method="post">
                                                 {% csrf_token %}
                                                 <div class="mb-3">
-                                                    <label for="Design">Design</label>
+                                                    <label for="Design" style="color: #000;">Design</label>
                                                     <input type="number" class="form-control" name="design" min="0"
                                                         max="10" value="0">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="Usability">Usability</label>
+                                                    <label for="Usability" style="color: #000;">Usability</label>
                                                     <input type="number" class="form-control" name="usability" min="0"
                                                         max="10" value="0">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="Content">Content</label>
+                                                    <label for="Content" style="color: #000;">Content</label>
                                                     <input type="number" class="form-control" id="Content" min="0"
                                                         max="10" value="0" name="content">
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn">Save</button>
+                                                    <button type="submit" class="btn" style="color: #000;">Save</button>
                                                 </div>
                                             </form>
                                         </div>
