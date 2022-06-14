@@ -54,7 +54,7 @@ To run the tests:
 * Bootstrap3
 
 ### Bugs
-The
+Some CSS styling not responsive in vote section
 
 ## Contact
 To make contributions to the code or offer any suggestions you can contact me via email:
