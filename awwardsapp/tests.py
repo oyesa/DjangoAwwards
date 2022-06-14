@@ -24,7 +24,7 @@ class ProfileTestClass(TestCase):
 class ProjectTestClass(TestCase):
     def setUp(self):
         self.oyesa = User(username = "oyesa", email = "mercyoyesa2018@gmail.com",password = "karas")
-        self.profile = Profile(user= self.oyesa, profile_pic='prof-pic.png',bio='bio', location='Kilgoris, Kenya', email='lmercyoyesa2018@gmail.com', link='www.mywebsite.com')
+        self.profile = Profile(user= self.oyesa, profile_pic='prof-pic.png',bio='bio', location='Kilgoris, Kenya', email='mercyoyesa2018@gmail.com', link='www.mywebsite.com')
         self.project = Project(name= "Test Project", screenshot = "screenshot.jpg", description ="project zero first test case", url = "testurl", profile= self.profile)
 
         self.oyesa.save()
