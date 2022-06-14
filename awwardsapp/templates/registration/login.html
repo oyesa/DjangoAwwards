@@ -2,28 +2,37 @@
 {% load static %}
 {%load bootstrap5 %}
 
+{% block styles %}
+{{ block.super}}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
 
 {% block content %}
 <div class="container">
-  <div class="registration">
-    <div class="regform">
-      <div class="signup">
-        <h1>Sign In</h1>
-        <form action="/accounts/register/" method="post">
-          {% csrf_token %}
-          {% bootstrap_form form%}
-          <button class="button submit" type="submit">Login</button>
+    <div class="welcome">
+      <div class="signinbox">
+        <div id="signin">
+          <h1>sign in</h1>
+          <form action="/accounts/login/" method="post" class="more-padding" autocomplete="off">
+            {% csrf_token %}
+            {% bootstrap_form form%}
+            <button class="button submit" type="submit">Login</button>
         </form>
-      </div>
-    </div>
-    <div class="moveleft">
-      <div class="logo">
-        <a href="/">Crowne Awards</a>
-      </div>
-      <h2></h2>
-      <p class="account">Don't Have an Account?</p>
+        </div>
+      </div>      
+      <div class="rightbox">
+        <div class="logo-wrap mt-4">
+          <h2 style="color: purple;">CrowneAwards</h2>
+          <hr style="color: purple;">
+        </div>
+        <h2 class="spacer"></h2>
+        <img class="award" src="https://res.cloudinary.com/oyesa/image/upload/v1655200454/home-logo_dzgqkz.jpg"/>
+        <h6 class="account">Don't have an account?</h6>
         <a href="/accounts/register/"><button class="button signup">Register</button></a>
+      </div>
     </div>
+   </div>
+  
   </div>
-</div>
-{% endblock content %}
+{% endblock %}
