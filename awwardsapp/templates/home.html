@@ -253,7 +253,7 @@ h3 {
           <time style="font-size: 6px;">{{project.post_date}}</time>
         </div>
         <article class="card_article">
-          <h3 style="font-size: 11px;"><a href="{% url 'project_details' project.id %}">{{project.title}}</a></h3>
+          <h3 style="font-size: 11px;"><a href="{{project.url}}">{{project.title}}</a></h3>
         </article>
       </div>
       <div class="card_action">
